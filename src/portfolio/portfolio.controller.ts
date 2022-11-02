@@ -1,13 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { identity } from 'rxjs';
 import { CreateItemDto, UpdateItemDto } from './dto';
+import { PortfolioService } from './portfolio.service';
 
 @Controller('portfolio')
 export class PortfolioController {
+    constructor(private portfolioService: PortfolioService){}
    
     @Get()
     getAllItems(){
-        return "Salom";
+        return this.portfolioService.getAllItems();
     }
 
     @Get(':id')
@@ -17,7 +19,7 @@ export class PortfolioController {
 
     @Post()
     createItem(@Body() dto: CreateItemDto){
-        return `Item is created ${dto.title}`;
+        return this.portfolioService.createItem(dto);
     }
 
     @Put(':id')
