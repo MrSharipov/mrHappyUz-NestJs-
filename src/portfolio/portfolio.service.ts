@@ -1,20 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateItemDto } from './dto';
+import { CreateItemDto, UpdateItemDto } from './dto';
 
 @Injectable()
 export class PortfolioService {
     constructor(private prisma: PrismaService){}
-        // Get All
+
+// Get All
+
     async getAllItems(){
         const item = await this.prisma.portfolio.findMany({});
-        console.log(item);
+        
+        return item;
     }
 
-        // Get One
-    getItemByID(){}
+// Get One
 
-        // Create one
+    async getItemByID(id: number){
+        const item = await this.prisma.portfolio.findUnique({
+            where: {
+                id
+            }
+        });
+        
+        return item;
+    }
+
+// Create one
+
     async createItem(dto: CreateItemDto){
         const item = await this.prisma.portfolio.create({
             data: {
@@ -26,6 +39,44 @@ export class PortfolioService {
 
         return item;
     }
-    updateItemById(){}
-    deleteItemById(){}
+
+// Update Item
+
+     async updateItemById(id: number, dto: UpdateItemDto){
+         const item = await this.prisma.portfolio.findUnique({
+            where: {
+                id
+            }
+         });
+
+         if(!item) throw new ForbiddenException("Not found in DB");
+
+         return await this.prisma.portfolio.update({
+            where: {
+                id,
+            },
+            data: {
+                ...dto
+            }
+         })
+    }
+
+
+// Delete Item
+
+    async deleteItemById(id:number){
+        const item = await this.prisma.portfolio.findUnique({
+            where: {
+                id,
+            }
+        });
+
+        if(!item) throw new ForbiddenException('Not found in DB');
+
+        return this.prisma.portfolio.delete({
+            where: {
+                id,
+            }
+        })
+    }
 }

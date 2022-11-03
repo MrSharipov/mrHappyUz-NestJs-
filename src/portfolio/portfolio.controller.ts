@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { identity } from 'rxjs';
 import { CreateItemDto, UpdateItemDto } from './dto';
 import { PortfolioService } from './portfolio.service';
@@ -13,8 +13,8 @@ export class PortfolioController {
     }
 
     @Get(':id')
-    getItemByID(@Param('id')id){
-        return `Salom ${id}`;
+    getItemByID(@Param('id', ParseIntPipe)id){
+        return this.portfolioService.getItemByID(id);
     }
 
     @Post()
@@ -23,12 +23,12 @@ export class PortfolioController {
     }
 
     @Put(':id')
-    updateItemById(@Param('id') id, @Body() dto: UpdateItemDto){
-        return `Item ${id} is updated ${dto.title}`;
+    updateItemById(@Param('id', ParseIntPipe) id, @Body() dto: UpdateItemDto){
+        return this.portfolioService.updateItemById(id, dto);
     }
 
     @Delete(':id')
-    deleteItemById(@Param('id') id){
-        return `Item ${id} is deleted`;
+    deleteItemById(@Param('id', ParseIntPipe) id){
+        return this.portfolioService.deleteItemById(id);
     }
 }
