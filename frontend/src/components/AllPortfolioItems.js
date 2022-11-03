@@ -22,6 +22,9 @@ const AllPortfolioItems = () => {
           <div className='card' key={item.id}>
             <h1>{item.title}</h1>
             <p>{item.desc}</p>
+            <p>{item.imgLink}</p>
+            <button>Edit</button>
+            <button>Delete</button>
           </div>
         ))}
     </>
