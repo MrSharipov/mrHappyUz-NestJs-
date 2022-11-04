@@ -43,3 +43,28 @@ ul li a {
     text-decoration: none;
     color: black
 }
+
+/* Update item */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    margin-top: 20px;
+}
+
+form input {
+    width: 400px;
+    height: 40px;
+}
+
+h1{
+    text-align: center;
+}
+
+form button {
+    width: 400px;
+    height: 40px;
+    margin-top: 15px;
+
+}

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CreateItem = () => {
+    const navigate = useNavigate();
     const url = "http://localhost:3003/portfolio";
     const [data, setData] = useState({
         title: '',
@@ -17,8 +19,8 @@ const CreateItem = () => {
             img: data.imgLink
         })
         .then(res => {
-            console.log(res.data);
-           window.location.replace('http://localhost:3000');
+         console.log(res.data);
+          navigate('/');
             
         })
     }
@@ -42,7 +44,7 @@ const CreateItem = () => {
         <label htmlFor="imgLink">Img</label>           
         <input type="text" id='imgLink' onChange={handleChange} />
 
-        <input type="submit" />
+        <button type="submit">Create</button>
     </form>
     </>
   )

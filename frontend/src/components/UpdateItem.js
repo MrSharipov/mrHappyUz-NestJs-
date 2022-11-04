@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const UpdateItem = () => {
-    const url = "http://localhost:3003/portfolio";
+    const location = useLocation();
+    const navigate = useNavigate();
+    const itemId = location.pathname.split('/')[2];
+    const url = "http://localhost:3003/portfolio/";
+
     const [data, setData] = useState({
         title: '',
         desc: '',
@@ -11,15 +16,10 @@ const UpdateItem = () => {
 
     function updateData(e){
         e.preventDefault();
-        axios.update(url, {
-            title: data.title,
-            desc: data.desc,
-            img: data.imgLink
-        })
+        axios.put(url+ itemId, data)
         .then(res => {
             console.log(res.data);
-           window.location.replace('http://localhost:3000');
-            
+            navigate('/');
         })
     }
 

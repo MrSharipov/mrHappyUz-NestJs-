@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 const AllPortfolioItems = () => {
     const [items, setItems] = useState([]);
@@ -16,8 +17,9 @@ const AllPortfolioItems = () => {
         fetchData()
     }, []);
 
-    function handleEdit(id) {
-        console.log(id);
+    const removeItem = async (id) => {
+      await axios.delete(`http://localhost:3003/portfolio/${id}`);
+      window.location.reload();
     }
         
   return (
@@ -27,8 +29,8 @@ const AllPortfolioItems = () => {
             <h1>{item.title}</h1>
             <p>{item.desc}</p>
             <p>{item.imgLink}</p>
-            <button onClick={()=>{handleEdit(item.id)}}>Edit</button>
-            <button>Delete</button>
+            <button><Link to={`/update/${item.id}`}>Edit</Link></button>
+            <button onClick={()=>{removeItem(item.id)}}>Delete</button>
           </div>
         ))}
     </div>
