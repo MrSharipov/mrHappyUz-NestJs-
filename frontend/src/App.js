@@ -1,15 +1,20 @@
 import AllPortfolioItems from "./components/AllPortfolioItems";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import './main.style.css';
 import CreateItem from "./components/CreateItem";
-import UpdateItem from "./components/UpdateItem";
 
 function App() {
   return (
     <>
-      <AllPortfolioItems />
-      <hr />
-      <CreateItem />
-      <hr />
-      <UpdateItem />
+      <BrowserRouter>
+          <Navbar>
+              <Routes>
+                  <Route path="/" element={<AllPortfolioItems /> }></Route>
+                  <Route path="/resume" element={<CreateItem /> }></Route>
+              </Routes>
+          </Navbar>
+      </BrowserRouter>
     </>
   );
 }

@@ -9,9 +9,9 @@ const UpdateItem = () => {
         imgLink: ''
     });
 
-    function submitData(e){
+    function updateData(e){
         e.preventDefault();
-        axios.post(url, {
+        axios.update(url, {
             title: data.title,
             desc: data.desc,
             img: data.imgLink
@@ -32,7 +32,7 @@ const UpdateItem = () => {
   return (
     <>
     <h1>Update portfolio Item</h1>
-    <form onSubmit={submitData}>
+    <form onSubmit={updateData}>
         <label htmlFor="title">Title</label>
         <input type="text" id='title' onChange={handleChange} />
 
